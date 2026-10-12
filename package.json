@@ -1,0 +1,6 @@
+{
+  "name": "lll-scraper",
+  "type": "module",
+  "scripts": { "v4": "node v4/server.mjs", "build:v4-data": "node v4/generate.mjs" },
+  "dependencies": { "playwright": "^1.48.0" }
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#08121d" />
+  <title>Last Letter Finder V4</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">LL</span><div><p class="eyebrow">WORD GAME TOOLKIT</p><h1>Last Letter Finder <span>V4</span></h1></div></div>
+    <div class="database-status" id="databaseStatus">Loading word list…</div>
+  </header>
+  <main>
+    <section class="search-panel" aria-label="Word search">
+      <label for="searchInput">Search the word list and trap columns</label>
+      <div class="search-line"><span class="search-icon" aria-hidden="true">⌕</span><input id="searchInput" type="search" autocomplete="off" spellcheck="false" placeholder="Type a prefix, or add a space to search endings" /><button id="clearSearch" type="button" aria-label="Clear search">×</button></div>
+      <p class="search-hint">Use <kbd>space first</kbd> for endings, or enter a start and end separated by a space.</p>
+    </section>
+    <nav class="quick-nav" aria-label="Jump to a section">
+      <a href="#normal">Normal</a><a href="#casual3">3 Letter Casual</a><a href="#casual4">4 Letter Casual</a><a href="#self">Self Traps</a><a href="#spam">Spam Endings</a><a href="#pro3">3 Letter Pro</a><a href="#pro4">4 Letter Pro</a><a href="#cancels">Spam Cancels</a>
+    </nav>
+    <section class="columns" aria-label="Search results">
+      <article class="column" id="normal"><header class="column-head"><div><span class="column-kicker">DATABASE</span><h2>Normal Words</h2></div><span class="count" data-count="normal">0</span></header><div class="word-list" data-list="normal"></div></article>
+      <article class="column" id="casual3"><header class="column-head"><div><span class="column-kicker">CASUAL • 3 LETTER ENDING</span><h2>3 Letter Traps</h2></div><span class="count" data-count="casual3">0</span></header><div class="word-list" data-list="casual3"></div></article>
+      <article class="column" id="casual4"><header class="column-head"><div><span class="column-kicker">CASUAL • 4 LETTER ENDING</span><h2>4 Letter Traps</h2></div><span class="count" data-count="casual4">0</span></header><div class="word-list" data-list="casual4"></div></article>
+      <article class="column" id="self"><header class="column-head"><div><span class="column-kicker">STANDALONE WORD TRAPS</span><h2>Self Traps</h2></div><span class="count" data-count="self">0</span></header><div class="word-list" data-list="self"></div></article>
+      <article class="column" id="spam"><header class="column-head"><div><span class="column-kicker">SELECTED ENDINGS</span><h2>Spam Endings</h2></div><span class="count" data-count="spam">0</span></header><div class="word-list" data-list="spam"></div></article>
+      <article class="column" id="pro3"><header class="column-head"><div><span class="column-kicker">PRO • 3 LETTER ENDING</span><h2>3 Letter Pro</h2></div><span class="count" data-count="pro3">0</span></header><div class="word-list" data-list="pro3"></div></article>
+      <article class="column" id="pro4"><header class="column-head"><div><span class="column-kicker">PRO • 4 LETTER ENDING</span><h2>4 Letter Pro</h2></div><span class="count" data-count="pro4">0</span></header><div class="word-list" data-list="pro4"></div></article>
+    </section>
+    <section class="cancel-area" id="cancels">
+      <header class="cancel-heading"><div><span class="column-kicker">GROUP COUNT STRATEGY</span><h2>Spam Cancels</h2><p>Choose a combo to see the shortest words that reduce its next-letter groups to fewer than three.</p></div><span class="count" data-count="spamCancels">0</span></header>
+      <div class="cancel-layout"><div class="cancel-choices" id="cancelChoices"><p class="empty-state">Search for a combo to choose a spam cancel.</p></div><div class="cancel-detail" id="cancelDetail"><div class="empty-icon">↳</div><h3>Choose a combo</h3><p>Type a combo such as <strong>ator</strong> in the search bar. Available cancellations will appear here.</p></div></div>
+    </section>
+    <footer><span>V4 • generated from the local Last Letter Library word list</span><span>Tap a word to copy it</span></footer>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

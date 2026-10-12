@@ -1,0 +1,34 @@
+{
+  "source": "../lll.txt",
+  "sourceWords": 481904,
+  "casualWords": 469765,
+  "proWords": 481631,
+  "spamEndings": [
+    "alet",
+    "uror",
+    "zia",
+    "elae",
+    "erio",
+    "vri",
+    "vite",
+    "acan",
+    "dise",
+    "eoli",
+    "coel",
+    "ters",
+    "ller",
+    "ally",
+    "eric",
+    "ses",
+    "tes"
+  ],
+  "traps": {
+    "casual3": 90864,
+    "casual4": 51542,
+    "pro3": 46910,
+    "pro4": 89287,
+    "self": 1848
+  },
+  "spamWords": 22658,
+  "spamCancelPatterns": 58841
+}
