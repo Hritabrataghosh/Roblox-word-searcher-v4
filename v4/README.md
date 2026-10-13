@@ -6,4 +6,4 @@ V4 is a separate app; the scraper and its source files remain at the project roo
 2. Start the local app with `npm run v4`.
 3. Open `http://localhost:4174/v4/`.
 
-Casual traps use letters only, require at least three solves, reject `+e`, `+s`, and `+es`, and require each counted solve to be at least two letters longer than the trap part. Pro traps allow symbols and are included when there are 1–5 solves. Each result column shows at most 50 words.
+Casual traps use letters only, require at least three solves, reject `+e`, `+s`, and `+es`, and require every solve to be at least two letters longer than the trap part. Pro traps allow symbols, use the same two-letter solve-length minimum, and are included when there are 1–5 solves. Normal results are sampled and sorted shortest-first. Spam results rotate through the selected ending groups before repeating a group. Each result column shows at most 50 words.

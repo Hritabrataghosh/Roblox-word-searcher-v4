@@ -69,8 +69,8 @@ function solveCache(prefixMaps, words, casual) {
         const candidates = prefixMaps[length].get(trap) ?? [];
         const solves = candidates.filter(word => {
             if (word === trap || (casual && isEasySolve(trap, word))) return false;
-            // Casual traps must survive short, near-obvious continuations too.
-            if (casual && word.length < trap.length + 2) return false;
+            // Every counted solve must be at least two letters longer than its trap.
+            if (word.length < trap.length + 2) return false;
             return true;
         });
         solves.sort((a, b) => a.length - b.length || a.localeCompare(b));

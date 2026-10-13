@@ -2,6 +2,7 @@ const SPAM_ENDINGS = ["alet", "uror", "zia", "elae", "erio", "vri", "vite", "aca
 const MAX_COLUMN = 50;
 const shardCache = new Map();
 const trapRotations = new Map();
+const spamRotations = new Map();
 let database = [];
 let chosenCancel = null;
 let searchSequence = 0;
@@ -69,6 +70,33 @@ function randomSample(items, limit = MAX_COLUMN) {
     return shuffle(sample);
 }
 
+function rotateSpam(words, rotationKey) {
+    if (!words.length) return [];
+    let rotation = spamRotations.get(rotationKey);
+    if (!rotation) {
+        const groups = new Map(SPAM_ENDINGS.map(ending => [ending, []]));
+        for (const word of words) {
+            const ending = SPAM_ENDINGS.find(item => word.endsWith(item));
+            if (ending) groups.get(ending).push(word);
+        }
+        for (const group of groups.values()) shuffle(group);
+        const sequence = [];
+        for (let round = 0; ; round++) {
+            let added = false;
+            for (const group of groups.values()) {
+                if (group[round]) { sequence.push(group[round]); added = true; }
+            }
+            if (!added) break;
+        }
+        rotation = { sequence, cursor: 0 };
+        spamRotations.set(rotationKey, rotation);
+    }
+    const count = Math.min(rotation.sequence.length, MAX_COLUMN);
+    const output = Array.from({ length: count }, (_, offset) => rotation.sequence[(rotation.cursor + offset) % rotation.sequence.length]);
+    rotation.cursor = (rotation.cursor + count) % rotation.sequence.length;
+    return output;
+}
+
 function sampleNormal(query) {
     const sample = [];
     let seen = 0;
@@ -81,7 +109,7 @@ function sampleNormal(query) {
             if (index < MAX_COLUMN) sample[index] = word;
         }
     }
-    return shuffle(sample);
+    return sortedWords(sample);
 }
 
 function spreadTraps(records, rotationKey, symbolsFirst = false) {
@@ -252,12 +280,21 @@ async function update() {
     const self = rows.self.filter(item => matches(item.word, query));
     renderColumn("self", spreadTraps(self, `self:${queryKey}`), "self");
     const spam = rows.spam.filter(word => matches(word, query) && SPAM_ENDINGS.some(ending => word.endsWith(ending)));
-    renderColumn("spam", randomSample(spam), "spam");
+    renderColumn("spam", rotateSpam(spam, `spam:${queryKey}`), "spam");
     const cancelMatches = rows.spamCancels.filter(item => matches(item.pattern, query));
     renderCancelChoices(cancelMatches);
 }
 
 input.addEventListener("input", () => { chosenCancel = null; update(); });
+document.querySelectorAll(".quick-nav a").forEach(link => {
+    link.addEventListener("click", event => {
+        const target = document.querySelector(link.getAttribute("href"));
+        if (!target) return;
+        event.preventDefault();
+        history.replaceState(null, "", link.getAttribute("href"));
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+});
 function clearSearch() { input.value = ""; chosenCancel = null; input.focus(); update(); }
 document.querySelector("#clearSearch").addEventListener("click", clearSearch);
 input.addEventListener("dblclick", clearSearch);
